@@ -2,228 +2,180 @@
 <html lang="id">
 
 <head>
- <meta charset="UTF-8">
- <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
- <title>Login Notulen UKM Iptek</title>
- <style>
-  body {
-   margin: 0;
-   min-height: 100vh;
-   background: linear-gradient(135deg, #4c0099, #00023e);
-   animation: gradientShift 8s infinite alternate;
-   font-family: 'Arial', sans-serif;
-   overflow: hidden;
-   color: white;
-  }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Login Notulen UKM Iptek</title>
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #4c0099, #00023e);
+            animation: gradientShift 8s infinite alternate;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+            color: white;
+        }
 
-  @keyframes gradientShift {
-   0% {
-    background-position: 0% 50%;
-   }
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
 
-   100% {
-    background-position: 100% 50%;
-   }
-  }
+        .container {
+            max-width: 400px;
+            width: 90%;
+            padding: 30px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            box-shadow: 0 0 35px rgba(76, 0, 153, 0.5);
+            backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 25px;
+            text-align: center;
+        }
 
-  .container {
-   max-width: 400px;
-   width: 90%;
-   margin: 20px auto 40px;
-   padding: 25px;
-   background: rgba(0, 0, 0, 0.3);
-   border-radius: 15px;
-   box-shadow: 0 0 35px rgba(76, 0, 153, 0.5);
-   backdrop-filter: blur(10px);
-   display: flex;
-   flex-direction: column;
-   align-items: center;
-   gap: 20px;
-   animation: containerFloat 3s ease-in-out infinite;
-  }
+        .logo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            box-shadow: 0 0 25px rgba(76,0,153,0.5),
+                        0 0 50px rgba(153,0,255,0.6),
+                        0 0 100px rgba(76,0,153,0.7);
+            transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            overflow: hidden;
+            animation: defaultSpin 5s linear infinite;
+        }
 
-  @keyframes containerFloat {
+        @keyframes defaultSpin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
 
-   0%,
-   100% {
-    transform: translateY(0);
-   }
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: inherit;
+        }
 
-   50% {
-    transform: translateY(-10px);
-   }
-  }
+        h1 {
+            color: rgba(153, 0, 255, 0.8);
+            text-shadow: 0 0 25px rgba(76, 0, 153, 0.5);
+            font-size: 2.5em;
+            margin: 0;
+        }
 
-  .logo {
-   width: 150px;
-   height: 150px;
-   border-radius: 50%;
-   box-shadow:
-    0 0 25px rgba(76, 0, 153, 0.5),
-    0 0 50px rgba(153, 0, 255, 0.6),
-    0 0 100px rgba(76, 0, 153, 0.7);
-   transition:
-    transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275),
-    filter 0.3s;
-   cursor: pointer;
-   overflow: hidden;
-   animation: logoPulse 2s infinite;
-  }
+        input[type="password"], button {
+            width: 100%;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.4);
+            border: none;
+            border-radius: 10px;
+            color: #fff;
+            font-size: 16px;
+            transition: 0.3s;
+            box-sizing: border-box;
+        }
 
-  @keyframes logoPulse {
-   0% {
-    transform: scale(1);
-    filter: drop-shadow(0 0 10px rgba(76, 0, 153, 0.3));
-   }
+        input[type="password"]:focus {
+            box-shadow: 0 0 25px rgba(76, 0, 153, 0.6);
+        }
 
-   50% {
-    transform: scale(1.02);
-    filter: drop-shadow(0 0 20px rgba(76, 0, 153, 0.6));
-   }
+        button {
+            background: linear-gradient(45deg, #4c0099, #9900ff);
+            margin-top: 15px;
+            cursor: pointer;
+        }
 
-   100% {
-    transform: scale(1);
-    filter: drop-shadow(0 0 10px rgba(76, 0, 153, 0.3));
-   }
-  }
+        button:hover {
+            transform: scale(1.05);
+        }
 
-  .logo img {
-   width: 100%;
-   height: 100%;
-   object-fit: cover;
-   border-radius: inherit;
-  }
+        .error {
+            color: #ff4444;
+            font-size: 0.9em;
+            opacity: 0;
+            transition: opacity 0.5s;
+            margin-top: 10px;
+        }
 
-  h1 {
-   color: rgba(153, 0, 255, 0.8);
-   text-align: center;
-   text-shadow: 0 0 25px rgba(76, 0, 153, 0.5);
-   font-size: 2.5em;
-   margin: 0;
-   animation: textTwinkle 3s infinite;
-  }
+        .error.show {
+            opacity: 1;
+        }
 
-  @keyframes textTwinkle {
+        @media (max-width: 768px) {
+            .logo {
+                width: 120px;
+                height: 120px;
+            }
+            
+            h1 {
+                font-size: 6vw;
+            }
+            
+            input[type="password"], button {
+                font-size: 5vw;
+                padding: 8px;
+            }
+        }
 
-   0%,
-   100% {
-    opacity: 1;
-   }
+        @keyframes spinEffect {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(360deg); }
+        }
 
-   50% {
-    opacity: 0.8;
-   }
-  }
-
-  input[type="password"],
-  button {
-   width: 100%;
-   padding: 15px;
-   background: rgba(0, 0, 0, 0.4);
-   border: none;
-   border-radius: 10px;
-   color: #fff;
-   font-size: 16px;
-   transition: 0.3s;
-   box-sizing: border-box;
-   box-shadow: inset 0 0 10px rgba(76, 0, 153, 0.3);
-  }
-
-  input[type="password"]:focus {
-   box-shadow: inset 0 0 25px rgba(76, 0, 153, 0.6);
-   outline: none;
-  }
-
-  button {
-   background: linear-gradient(45deg, #4c0099, #9900ff);
-   margin-top: 15px;
-   cursor: pointer;
-  }
-
-  button:hover {
-   transform: scale(1.05);
-   box-shadow: 0 0 30px rgba(76, 0, 153, 0.8);
-  }
-
-  .error {
-   color: #ff4444;
-   font-size: 0.9em;
-   text-align: center;
-   opacity: 0;
-   transition: opacity 0.5s;
-   margin-top: 10px;
-  }
-
-  .error.show {
-   opacity: 1;
-  }
-
-  @media (max-width: 768px) {
-   .container {
-    margin: 10px auto;
-    padding: 15px;
-   }
-
-   h1 {
-    font-size: 6vw;
-   }
-
-   .logo {
-    width: 120px;
-    height: 120px;
-   }
-
-   input[type="password"],
-   button {
-    font-size: 5vw;
-    padding: 8px;
-   }
-  }
-
-  @media (max-width: 480px) {
-   .container {
-    gap: 15px;
-   }
-  }
- </style>
+        @keyframes reverseSpin {
+            0% { transform: rotate(360deg); }
+            100% { transform: rotate(0deg); }
+        }
+    </style>
 </head>
 
 <body>
- <div class="container">
-  <div class="logo" onclick="spinLogo()" ontouchstart="spinLogo()">
-   <img src="UKMIPTEK.png" alt="Logo UKM IPTEK">
-  </div>
-  <h1>NOTULENSI UKM IPTEK POLNEP</h1>
-  <form id="loginForm">
-   <input type="password" id="password" placeholder="Masukkan Sandi" required>
-   <button type="submit">Masuk</button>
-   <div class="error" id="error_msg"></div>
-  </form>
- </div>
+    <div class="container">
+        <div class="logo" onclick="triggerLogoSpin()">
+            <img src="UKMIPTEK.png" alt="Logo UKM IPTEK">
+        </div>
+        <h1>NOTULENSI UKM IPTEK POLNEP</h1>
+        <form id="loginForm">
+            <input type="password" id="password" placeholder="Masukkan Sandi" required>
+            <button type="submit">Masuk</button>
+            <div class="error" id="error_msg"></div>
+        </form>
+    </div>
 
- <script>
-  function spinLogo() {
-   const logo = document.querySelector('.logo');
-   logo.style.animation = 'rotateLogo 1s ease-out';
-   setTimeout(() => {
-    logo.style.animation = 'reverseRotate 1s ease-in';
-   }, 1000);
-  }
+    <script>
+        function triggerLogoSpin() {
+            const logo = document.querySelector('.logo');
+            logo.style.animation = 'spinEffect 0.8s ease-out';
+            setTimeout(() => {
+                logo.style.animation = 'reverseSpin 0.8s ease-in';
+            }, 400);
+        }
 
-  document.getElementById('loginForm').addEventListener('submit', function (e) {
-   e.preventDefault();
-   const password = document.getElementById('password').value;
-   const error = document.getElementById('error_msg');
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const password = document.getElementById('password').value;
+            const error = document.getElementById('error_msg');
 
-   if (password === 'ukmiptek2024') {
-    window.location.href = 'https://docs.google.com/document/d/1Z1IDKM8YNElvRr9sAP7lYlUIF5pyrccmvAnIZ-PUziA/edit?tab=t.0';
-   } else {
-    error.textContent = 'Sandi Salah!';
-    error.style.opacity = 1;
-    setTimeout(() => error.style.opacity = 0, 3000);
-   }
-  });
- </script>
+            if (password === 'ukmiptek2024') {
+                window.location.href = 'https://docs.google.com/document/d/1Z1IDKM8YNElvRr9sAP7lYlUIF5pyrccmvAnIZ-PUziA/edit?tab=t.0';
+            } else {
+                error.textContent = 'Sandi Salah!';
+                error.classList.add('show');
+                setTimeout(() => {
+                    error.classList.remove('show');
+                    error.textContent = '';
+                }, 3000);
+            }
+        });
+    </script>
 </body>
 
 </html>
