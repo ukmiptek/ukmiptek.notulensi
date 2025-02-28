@@ -2,180 +2,251 @@
 <html lang="id">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Login Notulen UKM Iptek</title>
-    <style>
-        body {
-            margin: 0;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(135deg, #4c0099, #00023e);
-            animation: gradientShift 8s infinite alternate;
-            font-family: 'Arial', sans-serif;
-            overflow: hidden;
-            color: white;
-        }
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+ <title>Login Notulen UKM Iptek</title>
+ <style>
+  body {
+   margin: 0;
+   min-height: 100vh;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   background: linear-gradient(135deg, #4c0099, #00023e);
+   animation: gradientShift 8s infinite alternate;
+   font-family: 'Arial', sans-serif;
+   overflow: hidden;
+   color: white;
+  }
 
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            100% { background-position: 100% 50%; }
-        }
+  @keyframes gradientShift {
+   0% {
+    background-position: 0% 50%;
+   }
 
-        .container {
-            max-width: 400px;
-            width: 90%;
-            padding: 30px;
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 15px;
-            box-shadow: 0 0 35px rgba(76, 0, 153, 0.5);
-            backdrop-filter: blur(10px);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 25px;
-            text-align: center;
-        }
+   100% {
+    background-position: 100% 50%;
+   }
+  }
 
-        .logo {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            box-shadow: 0 0 25px rgba(76,0,153,0.5),
-                        0 0 50px rgba(153,0,255,0.6),
-                        0 0 100px rgba(76,0,153,0.7);
-            transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            cursor: pointer;
-            overflow: hidden;
-            animation: defaultSpin 5s linear infinite;
-        }
+  .container {
+   max-width: 400px;
+   width: 90%;
+   padding: 30px;
+   background: rgba(0, 0, 0, 0.3);
+   border-radius: 15px;
+   box-shadow: 0 0 35px rgba(76, 0, 153, 0.5);
+   backdrop-filter: blur(10px);
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   gap: 25px;
+   text-align: center;
+  }
 
-        @keyframes defaultSpin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
+  .logo {
+   width: 120px;
+   height: 120px;
+   border-radius: 50%;
+   box-shadow: 0 0 25px rgba(76, 0, 153, 0.5),
+    0 0 50px rgba(153, 0, 255, 0.6),
+    0 0 100px rgba(76, 0, 153, 0.7);
+   transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+   cursor: pointer;
+   overflow: hidden;
+   animation: defaultSpin 5s linear infinite;
+  }
 
-        .logo img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: inherit;
-        }
+  @keyframes defaultSpin {
+   0% {
+    transform: rotate(0deg);
+   }
 
-        h1 {
-            color: rgba(153, 0, 255, 0.8);
-            text-shadow: 0 0 25px rgba(76, 0, 153, 0.5);
-            font-size: 2.5em;
-            margin: 0;
-        }
+   100% {
+    transform: rotate(360deg);
+   }
+  }
 
-        input[type="password"], button {
-            width: 100%;
-            padding: 15px;
-            background: rgba(0, 0, 0, 0.4);
-            border: none;
-            border-radius: 10px;
-            color: #fff;
-            font-size: 16px;
-            transition: 0.3s;
-            box-sizing: border-box;
-        }
+  .logo img {
+   width: 100%;
+   height: 100%;
+   object-fit: cover;
+   border-radius: inherit;
+  }
 
-        input[type="password"]:focus {
-            box-shadow: 0 0 25px rgba(76, 0, 153, 0.6);
-        }
+  h1 {
+   color: rgba(153, 0, 255, 0.8);
+   text-shadow: 0 0 25px rgba(76, 0, 153, 0.5);
+   font-size: 2.5em;
+   margin: 0;
+  }
 
-        button {
-            background: linear-gradient(45deg, #4c0099, #9900ff);
-            margin-top: 15px;
-            cursor: pointer;
-        }
+  input[type="password"],
+  button {
+   width: 100%;
+   padding: 15px;
+   background: rgba(0, 0, 0, 0.4);
+   border: none;
+   border-radius: 10px;
+   color: #fff;
+   font-size: 16px;
+   transition: 0.3s;
+   box-sizing: border-box;
+  }
 
-        button:hover {
-            transform: scale(1.05);
-        }
+  input[type="password"]:focus {
+   box-shadow: 0 0 25px rgba(76, 0, 153, 0.6);
+  }
 
-        .error {
-            color: #ff4444;
-            font-size: 0.9em;
-            opacity: 0;
-            transition: opacity 0.5s;
-            margin-top: 10px;
-        }
+  button {
+   background: linear-gradient(45deg, #4c0099, #9900ff);
+   margin-top: 15px;
+   cursor: pointer;
+  }
 
-        .error.show {
-            opacity: 1;
-        }
+  button:hover {
+   transform: scale(1.05);
+  }
 
-        @media (max-width: 768px) {
-            .logo {
-                width: 120px;
-                height: 120px;
-            }
-            
-            h1 {
-                font-size: 6vw;
-            }
-            
-            input[type="password"], button {
-                font-size: 5vw;
-                padding: 8px;
-            }
-        }
+  .error {
+   color: #ff4444;
+   font-size: 0.9em;
+   opacity: 0;
+   transition: opacity 0.5s;
+   margin-top: 10px;
+  }
 
-        @keyframes spinEffect {
-            0%, 100% { transform: rotate(0deg); }
-            50% { transform: rotate(360deg); }
-        }
+  .error.show {
+   opacity: 1;
+  }
 
-        @keyframes reverseSpin {
-            0% { transform: rotate(360deg); }
-            100% { transform: rotate(0deg); }
-        }
-    </style>
+  @media (max-width: 768px) {
+   .logo {
+    width: 120px;
+    height: 120px;
+   }
+
+   h1 {
+    font-size: 6vw;
+   }
+
+   input[type="password"],
+   button {
+    font-size: 5vw;
+    padding: 8px;
+   }
+  }
+
+  @keyframes spinEffect {
+
+   0%,
+   100% {
+    transform: rotate(0deg);
+   }
+
+   50% {
+    transform: rotate(360deg);
+   }
+  }
+
+  @keyframes reverseSpin {
+   0% {
+    transform: rotate(360deg);
+   }
+
+   100% {
+    transform: rotate(0deg);
+   }
+  }
+
+  .iframe-container {
+   width: 100%;
+   height: 100vh;
+   display: none;
+   padding: 20px;
+   box-sizing: border-box;
+   background: rgba(0, 0, 0, 0.3);
+   border-radius: 15px;
+   box-shadow: 0 0 25px rgba(76, 0, 153, 0.5);
+  }
+
+  iframe {
+   width: 100%;
+   height: 100%;
+   border: none;
+   border-radius: 10px;
+   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Eye Icon Styling */
+  .eye-icon {
+   position: absolute;
+   right: 10px;
+   top: 50%;
+   transform: translateY(-50%);
+   cursor: pointer;
+   color: #fff;
+  }
+ </style>
 </head>
 
 <body>
-    <div class="container">
-        <div class="logo" onclick="triggerLogoSpin()">
-            <img src="UKMIPTEK.png" alt="Logo UKM IPTEK">
-        </div>
-        <h1>NOTULENSI UKM IPTEK POLNEP</h1>
-        <form id="loginForm">
-            <input type="password" id="password" placeholder="Masukkan Sandi" required>
-            <button type="submit">Masuk</button>
-            <div class="error" id="error_msg"></div>
-        </form>
-    </div>
+ <div class="container">
+  <div class="logo" onclick="triggerLogoSpin()">
+   <img src="UKMIPTEK.png" alt="Logo UKM IPTEK">
+  </div>
+  <h1>NOTULENSI UKM IPTEK POLNEP</h1>
+  <form id="loginForm">
+   <div style="position: relative; width: 100%;">
+    <input type="password" id="password" placeholder="Masukkan Sandi" required>
+    <span class="eye-icon" onclick="togglePassword()">👁️</span>
+   </div>
+   <button type="submit">Masuk</button>
+   <div class="error" id="error_msg"></div>
+  </form>
+ </div>
 
-    <script>
-        function triggerLogoSpin() {
-            const logo = document.querySelector('.logo');
-            logo.style.animation = 'spinEffect 0.8s ease-out';
-            setTimeout(() => {
-                logo.style.animation = 'reverseSpin 0.8s ease-in';
-            }, 400);
-        }
+ <!-- Container untuk iframe yang akan muncul setelah login -->
+ <div class="iframe-container" id="iframeContainer">
+  <iframe src="https://docs.google.com/document/d/1Z1IDKM8YNElvRr9sAP7lYlUIF5pyrccmvAnIZ-PUziA/edit?tab=t.0"
+   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
+ </div>
 
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const password = document.getElementById('password').value;
-            const error = document.getElementById('error_msg');
+ <script>
+  function triggerLogoSpin() {
+   const logo = document.querySelector('.logo');
+   logo.style.animation = 'spinEffect 0.8s ease-out';
+   setTimeout(() => {
+    logo.style.animation = 'reverseSpin 0.8s ease-in';
+   }, 400);
+  }
 
-            if (password === 'ukmiptek2024') {
-                window.location.href = 'https://docs.google.com/document/d/1Z1IDKM8YNElvRr9sAP7lYlUIF5pyrccmvAnIZ-PUziA/edit?tab=t.0';
-            } else {
-                error.textContent = 'Sandi Salah!';
-                error.classList.add('show');
-                setTimeout(() => {
-                    error.classList.remove('show');
-                    error.textContent = '';
-                }, 3000);
-            }
-        });
-    </script>
+  document.getElementById('loginForm').addEventListener('submit', function (e) {
+   e.preventDefault();
+   const password = document.getElementById('password').value;
+   const error = document.getElementById('error_msg');
+
+   if (password === 'ukmiptek2024') {
+    // Menampilkan iframe setelah login berhasil
+    document.getElementById('iframeContainer').style.display = 'block';
+    document.querySelector('.container').style.display = 'none';
+   } else {
+    error.textContent = 'Sandi Salah!';
+    error.classList.add('show');
+    setTimeout(() => {
+     error.classList.remove('show');
+     error.textContent = '';
+    }, 3000);
+   }
+  });
+
+  // Fungsi untuk toggle menampilkan atau menyembunyikan password
+  function togglePassword() {
+   const passwordField = document.getElementById('password');
+   const type = passwordField.type === "password" ? "text" : "password";
+   passwordField.type = type;
+  }
+ </script>
 </body>
 
 </html>
