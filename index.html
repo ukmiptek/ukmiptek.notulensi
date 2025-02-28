@@ -135,6 +135,11 @@
     font-size: 5vw;
     padding: 8px;
    }
+
+   .container {
+    width: 100%;
+    padding: 20px;
+   }
   }
 
   @keyframes spinEffect {
@@ -208,7 +213,7 @@
 
  <!-- Container untuk iframe yang akan muncul setelah login -->
  <div class="iframe-container" id="iframeContainer">
-  <iframe src="https://docs.google.com/document/d/1Z1IDKM8YNElvRr9sAP7lYlUIF5pyrccmvAnIZ-PUziA/edit?tab=t.0"
+  <iframe src="https://docs.google.com/document/d/1Z1IDKM8YNElvRr9sAP7lYlUIF5pyrccmvAnIZ-PUziA/edit?usp=sharing"
    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
  </div>
 
@@ -227,9 +232,14 @@
    const error = document.getElementById('error_msg');
 
    if (password === 'ukmiptek2024') {
-    // Menampilkan iframe setelah login berhasil
-    document.getElementById('iframeContainer').style.display = 'block';
-    document.querySelector('.container').style.display = 'none';
+    // Deteksi perangkat mobile dan arahkan ke URL penuh (bukan iframe)
+    if (/Android/i.test(navigator.userAgent)) {
+     window.location.href = 'https://docs.google.com/document/d/1Z1IDKM8YNElvRr9sAP7lYlUIF5pyrccmvAnIZ-PUziA/edit?usp=sharing';
+    } else {
+     // Menampilkan iframe setelah login berhasil
+     document.getElementById('iframeContainer').style.display = 'block';
+     document.querySelector('.container').style.display = 'none';
+    }
    } else {
     error.textContent = 'Sandi Salah!';
     error.classList.add('show');
