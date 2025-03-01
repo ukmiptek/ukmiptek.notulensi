@@ -1,260 +1,375 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <title>Login Notulen UKM Iptek</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UKM IPTEK - Owner Portal</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    body {
+    :root {
+      --primary: #6A1B9A;
+      --secondary: #4A148C;
+      --accent: #AB47BC;
+      --bg: #f3e5f5;
+      --text: #212121;
+    }
+
+    * {
       margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
       min-height: 100vh;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #f3e5f5 30%, #ede7f6 70%);
       display: flex;
-      align-items: center;
       justify-content: center;
-      background: linear-gradient(135deg, #4c0099, #00023e);
-      animation: gradientShift 8s infinite alternate;
-      font-family: 'Arial', sans-serif;
-      overflow: hidden;
-      color: white;
-    }
-
-    @keyframes gradientShift {
-      0% {
-        background-position: 0% 50%;
-      }
-
-      100% {
-        background-position: 100% 50%;
-      }
-    }
-
-    .container {
-      max-width: 400px;
-      width: 90%;
-      padding: 30px;
-      background: rgba(0, 0, 0, 0.3);
-      border-radius: 15px;
-      box-shadow: 0 0 35px rgba(76, 0, 153, 0.5);
-      backdrop-filter: blur(10px);
-      display: flex;
-      flex-direction: column;
       align-items: center;
-      gap: 25px;
-      text-align: center;
+      position: relative;
+    }
+
+    /* Efek shadow untuk logo */
+    .logo img {
+      width: 80px;
+      height: auto;
+      filter: drop-shadow(0 4px 6px rgba(106, 27, 154, 0.3));
+      transition: all 0.3s ease;
+    }
+
+    .logo img:hover {
+      transform: scale(1.1);
+      filter: drop-shadow(0 6px 8px rgba(106, 27, 154, 0.4));
+    }
+
+    .login-wrapper {
+      background: white;
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 15px 40px rgba(106, 27, 154, 0.15);
+      width: 100%;
+      max-width: 450px;
+      transition: all 0.3s ease;
     }
 
     .logo {
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      box-shadow: 0 0 25px rgba(76, 0, 153, 0.5),
-        0 0 50px rgba(153, 0, 255, 0.6),
-        0 0 100px rgba(76, 0, 153, 0.7);
-      transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      cursor: pointer;
-      overflow: hidden;
-      animation: defaultSpin 5s linear infinite;
+      text-align: center;
+      margin-bottom: 30px;
+      color: var(--primary);
+      font-weight: 600;
+      font-size: 28px;
+      position: relative;
     }
 
-    @keyframes defaultSpin {
-      0% {
-        transform: rotate(0deg);
-      }
-
-      100% {
-        transform: rotate(360deg);
-      }
+    .logo::after {
+      content: '';
+      display: block;
+      width: 80px;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      margin: 12px auto;
+      border-radius: 2px;
     }
 
-    .logo img {
+    .form-group {
+      margin-bottom: 25px;
+      position: relative;
+    }
+
+    input {
       width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: inherit;
+      padding: 18px;
+      border: 2px solid #eee;
+      border-radius: 10px;
+      font-size: 16px;
+      transition: all 0.3s ease;
+      background: #fcfcfc;
     }
 
-    h1 {
-      color: rgba(203, 125, 255, 0.856);
-      text-shadow: 0 0 25px rgba(76, 0, 153, 0.5);
-      font-size: 2.5em;
-      margin: 0;
+    input:focus {
+      border-color: var(--primary);
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(106, 27, 154, 0.15);
     }
 
-    input[type="password"],
     button {
-      width: 100%;
-      padding: 15px;
-      background: rgba(0, 0, 0, 0.4);
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      padding: 16px;
       border: none;
       border-radius: 10px;
-      color: #fff;
+      width: 100%;
       font-size: 16px;
-      transition: 0.3s;
-      box-sizing: border-box;
-    }
-
-    input[type="password"]:focus {
-      box-shadow: 0 0 25px rgba(76, 0, 153, 0.6);
-    }
-
-    button {
-      background: linear-gradient(45deg, #4c0099, #9900ff);
-      margin-top: 15px;
       cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 15px rgba(106, 27, 154, 0.2);
     }
 
     button:hover {
-      transform: scale(1.05);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(106, 27, 154, 0.25);
     }
 
     .error {
-      color: #ff4444;
-      font-size: 0.9em;
-      opacity: 0;
-      transition: opacity 0.5s;
-      margin-top: 10px;
+      color: #d9534f;
+      text-align: center;
+      margin-top: 15px;
+      font-size: 14px;
     }
 
-    .error.show {
-      opacity: 1;
-    }
-
-    @media (max-width: 768px) {
-      .logo {
-        width: 120px;
-        height: 120px;
-      }
-
-      h1 {
-        font-size: 6vw;
-      }
-
-      input[type="password"],
-      button {
-        font-size: 5vw;
-        padding: 8px;
-      }
-
-      .container {
-        width: 100%;
-        padding: 20px;
-      }
-    }
-
-    @keyframes spinEffect {
-
-      0%,
-      100% {
-        transform: rotate(0deg);
-      }
-
-      50% {
-        transform: rotate(360deg);
-      }
-    }
-
-    @keyframes reverseSpin {
-      0% {
-        transform: rotate(360deg);
-      }
-
-      100% {
-        transform: rotate(0deg);
-      }
-    }
-
-    .iframe-container {
-      width: 100%;
-      height: 100vh;
+    .protected-container {
       display: none;
-      padding: 20px;
-      box-sizing: border-box;
-      background: rgba(0, 0, 0, 0.3);
-      border-radius: 15px;
-      box-shadow: 0 0 25px rgba(76, 0, 153, 0.5);
-    }
-
-    iframe {
+      position: fixed;
+      top: 0;
+      left: 0;
       width: 100%;
       height: 100%;
+      padding: 20px;
+    }
+
+    .session-bar {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      padding: 18px;
+      border-radius: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      margin-bottom: 15px;
+      transition: all 0.3s ease;
+    }
+
+    .session-bar img {
+      width: 40px;
+      height: auto;
+      filter: drop-shadow(0 4px 6px rgba(106, 27, 154, 0.3));
+      margin-right: 10px;
+    }
+
+    .session-bar.collapsed {
+      padding: 8px;
+      border-radius: 12px;
+      transition: all 0.3s ease;
+    }
+
+    .session-controls {
+      display: flex;
+      gap: 15px;
+    }
+
+    .toggle-btn {
+      background: rgba(255, 255, 255, 0.2);
       border: none;
-      border-radius: 10px;
+      color: white;
+      padding: 8px 15px;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .toggle-btn:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+
+    .logout-btn {
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .logout-btn:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+
+    .content-iframe {
+      width: 100%;
+      height: calc(100% - 70px);
+      border: none;
+      border-radius: 15px;
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
     }
 
-    /* Eye Icon Styling */
-    .eye-icon {
-      position: absolute;
-      right: 10px;
-      top: 50%;
-      transform: translateY(-50%);
-      cursor: pointer;
-      color: #fff;
+    .session-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .session-info span {
+      font-weight: 600;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    footer img {
+      width: 60px;
+      height: auto;
+      filter: drop-shadow(0 4px 6px rgba(106, 27, 154, 0.3));
+    }
+
+    @media (max-width: 480px) {
+      .login-wrapper {
+        padding: 30px;
+      }
+
+      input {
+        font-size: 14px;
+      }
+
+      .session-bar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 15px;
+      }
     }
   </style>
 </head>
 
 <body>
-  <div class="container">
-    <div class="logo" onclick="triggerLogoSpin()">
+  <div class="login-wrapper" id="loginSection">
+    <div class="logo">
       <img src="UKMIPTEK.png" alt="Logo UKM IPTEK">
+      <h2>QWEN IPTEK</h2>
     </div>
-    <h1>NOTULENSI UKM IPTEK POLNEP</h1>
-    <form id="loginForm">
-      <div style="position: relative; width: 100%;">
-        <input type="password" id="password" placeholder="Masukkan Sandi" required>
-        <span class="eye-icon" onclick="togglePassword()">👁️</span>
+    <form id="accessForm">
+      <div class="form-group">
+        <input type="text" id="username" placeholder="Username" required>
       </div>
-      <button type="submit">Masuk</button>
-      <div class="error" id="error_msg"></div>
+      <div class="form-group">
+        <input type="password" id="password" placeholder="Password" required>
+      </div>
+      <button type="submit">Login</button>
+      <div id="errorBox" class="error"></div>
     </form>
   </div>
 
-  <!-- Container untuk iframe yang akan muncul setelah login -->
-  <div class="iframe-container" id="iframeContainer">
+  <div class="protected-container" id="protectedSection">
+    <div class="session-bar" id="sessionBar">
+      <div class="session-info">
+        <img src="UKMIPTEK.png" alt="Logo UKM IPTEK">
+        <span id="sessionCounter">Session aktif: 60 detik</span>
+      </div>
+      <div class="session-controls">
+        <button class="toggle-btn" id="toggleButton">Sembunyikan Limit</button>
+        <button class="logout-btn" id="logoutButton">Logout</button>
+      </div>
+    </div>
     <iframe src="https://docs.google.com/document/d/1Z1IDKM8YNElvRr9sAP7lYlUIF5pyrccmvAnIZ-PUziA/edit?usp=sharing"
+      class="content-iframe"
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
   </div>
 
+
   <script>
-    function triggerLogoSpin() {
-      const logo = document.querySelector('.logo');
-      logo.style.animation = 'spinEffect 0.8s ease-out';
-      setTimeout(() => {
-        logo.style.animation = 'reverseSpin 0.8s ease-in';
-      }, 400);
+    // Fungsi untuk menambahkan pengguna baru
+    function addUser(username, password, sessionLimit) {
+      allowedCredentials.push({ username, password, sessionLimit });
     }
 
-    document.getElementById('loginForm').addEventListener('submit', function (e) {
-      e.preventDefault();
-      const password = document.getElementById('password').value;
-      const error = document.getElementById('error_msg');
+    // Daftar kredensial awal
+    const allowedCredentials = [];
 
-      if (password === 'ukmiptek2024') {
-        // Deteksi perangkat mobile dan arahkan ke URL penuh (bukan iframe)
-        if (/Android/i.test(navigator.userAgent)) {
-          window.location.href = 'https://docs.google.com/document/d/1Z1IDKM8YNElvRr9sAP7lYlUIF5pyrccmvAnIZ-PUziA/edit?usp=sharing';
-        } else {
-          // Menampilkan iframe setelah login berhasil
-          document.getElementById('iframeContainer').style.display = 'block';
-          document.querySelector('.container').style.display = 'none';
-        }
+    // Menambahkan pengguna secara dinamis
+    addUser("ukmiptek", "admin123", 999999); // no limit
+    addUser("admin", "CtrlAltOwner2024", 1); // 1 menit
+    addUser("owner", "SecureMaster99!", 10); // 10 menit
+    addUser("sys", "QwenAccessOnly$$", 15); // 15 menit
+    addUser("root", "RestrictedLogin##", 60); // 1 jam
+    addUser("guest", "GuestPass", 0.5); // 30 detik
+
+    let sessionTimeout;
+    let isSessionBarCollapsed = false;
+
+    document.getElementById('accessForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+
+      const user = allowedCredentials.find(cred =>
+        cred.username === username && cred.password === password
+      );
+
+      if (user) {
+        document.getElementById('loginSection').style.display = 'none';
+        document.getElementById('protectedSection').style.display = 'block';
+
+        startSession(user.sessionLimit * 60000); // Konversi menit ke milidetik
+        document.querySelectorAll("input").forEach(input => input.value = "");
       } else {
-        error.textContent = 'Sandi Salah!';
-        error.classList.add('show');
-        setTimeout(() => {
-          error.classList.remove('show');
-          error.textContent = '';
-        }, 3000);
+        document.getElementById('errorBox').textContent =
+          "Akses ditolak - Kredensial tidak valid";
       }
     });
 
-    // Fungsi untuk toggle menampilkan atau menyembunyikan password
-    function togglePassword() {
-      const passwordField = document.getElementById('password');
-      const type = passwordField.type === "password" ? "text" : "password";
-      passwordField.type = type;
+    function startSession(timeout) {
+      let remaining = timeout;
+
+      const updateCounter = () => {
+        const seconds = Math.floor(remaining / 1000);
+        const counterText = document.getElementById('sessionCounter');
+
+        if (seconds > 0) {
+          const minutes = Math.floor(seconds / 60);
+          const secs = seconds % 60;
+          counterText.textContent = `Session aktif: ${minutes}m ${secs}s`;
+          if (seconds <= 10) {
+            counterText.style.color = '#ffebee';
+            counterText.style.fontWeight = '700';
+          }
+        } else {
+          clearInterval(sessionTimeout);
+          logout();
+        }
+        remaining -= 1000;
+      };
+
+      sessionTimeout = setInterval(updateCounter, 1000);
+      updateCounter();
+    }
+
+    function logout() {
+      document.getElementById('loginSection').style.display = 'block';
+      document.getElementById('protectedSection').style.display = 'none';
+      clearInterval(sessionTimeout);
+      resetSessionUI();
+    }
+
+    document.getElementById('logoutButton').addEventListener('click', logout);
+
+    document.getElementById('toggleButton').addEventListener('click', () => {
+      const sessionBar = document.getElementById('sessionBar');
+      const toggleButton = document.getElementById('toggleButton');
+
+      if (isSessionBarCollapsed) {
+        sessionBar.style.padding = '18px';
+        toggleButton.textContent = 'Sembunyikan Limit';
+        document.getElementById('sessionCounter').style.display = 'block';
+      } else {
+        sessionBar.style.padding = '8px';
+        toggleButton.textContent = 'Tampilkan Limit';
+        document.getElementById('sessionCounter').style.display = 'none';
+      }
+
+      isSessionBarCollapsed = !isSessionBarCollapsed;
+    });
+
+    function resetSessionUI() {
+      document.getElementById('sessionCounter').style.color = 'white';
+      document.getElementById('sessionCounter').style.fontWeight = '600';
+      document.getElementById('sessionCounter').style.display = 'block';
+      document.getElementById('toggleButton').textContent = 'Sembunyikan Limit';
+      isSessionBarCollapsed = false;
     }
   </script>
 </body>
