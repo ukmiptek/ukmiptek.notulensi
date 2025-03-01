@@ -17,6 +17,7 @@
       font-family: 'Arial', sans-serif;
       overflow: hidden;
       color: white;
+      position: relative;
     }
 
     @keyframes gradientShift {
@@ -45,26 +46,16 @@
     }
 
     .logo {
+      position: relative;
       width: 120px;
       height: 120px;
       border-radius: 50%;
       box-shadow: 0 0 25px rgba(76, 0, 153, 0.5),
         0 0 50px rgba(153, 0, 255, 0.6),
         0 0 100px rgba(76, 0, 153, 0.7);
-      transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      transition: transform 0.3s ease;
       cursor: pointer;
       overflow: hidden;
-      animation: defaultSpin 5s linear infinite;
-    }
-
-    @keyframes defaultSpin {
-      0% {
-        transform: rotate(0deg);
-      }
-
-      100% {
-        transform: rotate(360deg);
-      }
     }
 
     .logo img {
@@ -72,6 +63,59 @@
       height: 100%;
       object-fit: cover;
       border-radius: inherit;
+    }
+
+    .logo.spin-continuous {
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    .notification {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 20px 30px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(15px);
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.4s ease;
+      z-index: 9999;
+      /* Pastikan di depan semua elemen */
+    }
+
+    .notification.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .notification-text {
+      color: white;
+      font-size: 16px;
+      line-height: 1.4;
+    }
+
+    .notification-icon {
+      stroke: #4CAF50;
+      width: 32px;
+      height: 32px;
+      transition: transform 0.3s;
+      cursor: pointer;
+    }
+
+    .notification-icon:hover {
+      transform: scale(1.05);
     }
 
     h1 {
@@ -120,6 +164,48 @@
       opacity: 1;
     }
 
+    .password-strength {
+      height: 8px;
+      border-radius: 4px;
+      background: linear-gradient(90deg, #7a3bff, #c04bff, #ff58bf);
+      margin: 10px 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .password-strength-bar {
+      height: 100%;
+      background: linear-gradient(90deg, #ff58bf, #c04bff, #7a3bff);
+      position: absolute;
+      top: 0;
+      left: 0;
+      transition: width 0.4s;
+    }
+
+    .strength-label {
+      display: block;
+      text-align: right;
+      margin-top: -28px;
+      padding-right: 30px;
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.7);
+      transition: transform 0.3s;
+    }
+
+    .toggle-password {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      transition: transform 0.3s, filter 0.3s;
+    }
+
+    .toggle-password:hover {
+      transform: scale(1.1);
+      filter: drop-shadow(0 0 3px #ff58bf);
+    }
+
     @media (max-width: 768px) {
       .logo {
         width: 120px;
@@ -142,28 +228,6 @@
       }
     }
 
-    @keyframes spinEffect {
-
-      0%,
-      100% {
-        transform: rotate(0deg);
-      }
-
-      50% {
-        transform: rotate(360deg);
-      }
-    }
-
-    @keyframes reverseSpin {
-      0% {
-        transform: rotate(360deg);
-      }
-
-      100% {
-        transform: rotate(0deg);
-      }
-    }
-
     .iframe-container {
       width: 100%;
       height: 100vh;
@@ -172,10 +236,10 @@
       box-sizing: border-box;
       background: rgba(0, 0, 0, 0.3);
       border-radius: 15px;
-      /* Melengkungkan sisi-sisi container */
       box-shadow: 0 0 25px rgba(76, 0, 153, 0.5);
       overflow: hidden;
-      /* Memastikan konten iframe tetap dalam batas lengkungan */
+      z-index: 999;
+      /* Pastikan notification di atas iframe */
     }
 
     iframe {
@@ -183,51 +247,85 @@
       height: 100%;
       border: none;
       border-radius: 15px;
-      /* Melengkungkan sisi-sisi iframe */
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-    }
-
-    /* Eye Icon Styling */
-    .eye-icon {
-      position: absolute;
-      right: 10px;
-      top: 50%;
-      transform: translateY(-50%);
-      cursor: pointer;
-      color: #fff;
     }
   </style>
 </head>
 
 <body>
+  <div class="notification" id="notification">
+    <div class="notification-text">
+      Jika membuka di handphone, disarankan menggunakan mode desktop
+    </div>
+    <svg xmlns="http://www.w3.org/2000/svg" class="notification-icon" viewBox="0 0 24 24" fill="none" stroke="#4CAF50"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="20 6 9 17 4 12" />
+    </svg>
+  </div>
+
   <div class="container">
-    <div class="logo" onclick="triggerLogoSpin()">
+    <div class="logo" onclick="toggleLogoSpin()">
       <img src="UKMIPTEK.png" alt="Logo UKM IPTEK">
     </div>
     <h1>NOTULENSI UKM IPTEK POLNEP</h1>
     <form id="loginForm">
       <div style="position: relative; width: 100%;">
-        <input type="password" id="password" placeholder="Masukkan Sandi" required>
-        <span class="eye-icon" onclick="togglePassword()">👁️</span>
+        <input type="password" id="password" placeholder="Masukkan Sandi" required oninput="checkStrength()">
+        <span class="toggle-password" onclick="togglePassword()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white"
+            stroke-width="2">
+            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+            <circle cx="12" cy="12" r="3" />
+          </svg>
+        </span>
       </div>
+      <div class="password-strength">
+        <div class="password-strength-bar" id="strengthBar"></div>
+      </div>
+      <span class="strength-label" id="strengthLabel">0%</span>
       <button type="submit">Masuk</button>
       <div class="error" id="error_msg"></div>
     </form>
   </div>
 
-  <!-- Container untuk iframe yang akan muncul setelah login -->
   <div class="iframe-container" id="iframeContainer">
     <iframe src="https://docs.google.com/document/d/1Z1IDKM8YNElvRr9sAP7lYlUIF5pyrccmvAnIZ-PUziA/edit?usp=sharing"
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
   </div>
 
   <script>
-    function triggerLogoSpin() {
+    // Logo spin on page load
+    document.querySelector('.logo').classList.add('spin-continuous');
+    setTimeout(() => {
+      document.querySelector('.logo').classList.remove('spin-continuous');
+    }, 3000);
+
+    // Notification handling
+    const notification = document.getElementById('notification');
+    const hasDismissed = sessionStorage.getItem('hasDismissedNotification');
+
+    if (!hasDismissed) {
+      notification.classList.add('show');
+    }
+
+    notification.querySelector('.notification-icon').addEventListener('click', () => {
+      notification.remove();
+      sessionStorage.setItem('hasDismissedNotification', 'true');
+    });
+
+    let isSpinning = false;
+
+    function toggleLogoSpin() {
       const logo = document.querySelector('.logo');
-      logo.style.animation = 'spinEffect 0.8s ease-out';
-      setTimeout(() => {
-        logo.style.animation = 'reverseSpin 0.8s ease-in';
-      }, 400);
+      if (isSpinning) {
+        logo.classList.remove('spin-continuous');
+        logo.style.transform = 'rotate(0deg)';
+        isSpinning = false;
+      } else {
+        logo.classList.add('spin-continuous');
+        logo.style.transform = 'rotate(0deg)';
+        isSpinning = true;
+      }
     }
 
     document.getElementById('loginForm').addEventListener('submit', function (e) {
@@ -236,11 +334,9 @@
       const error = document.getElementById('error_msg');
 
       if (password === 'ukmiptek2024') {
-        // Deteksi perangkat mobile dan arahkan ke URL penuh (bukan iframe)
         if (/Android/i.test(navigator.userAgent)) {
           window.location.href = 'https://docs.google.com/document/d/1Z1IDKM8YNElvRr9sAP7lYlUIF5pyrccmvAnIZ-PUziA/edit?usp=sharing';
         } else {
-          // Menampilkan iframe setelah login berhasil
           document.getElementById('iframeContainer').style.display = 'block';
           document.querySelector('.container').style.display = 'none';
         }
@@ -254,11 +350,45 @@
       }
     });
 
-    // Fungsi untuk toggle menampilkan atau menyembunyikan password
     function togglePassword() {
       const passwordField = document.getElementById('password');
-      const type = passwordField.type === "password" ? "text" : "password";
-      passwordField.type = type;
+      const icon = document.querySelector('.toggle-password svg');
+      passwordField.type = passwordField.type === 'password' ? 'text' : 'password';
+      icon.style.stroke = passwordField.type === 'text' ? '#ff58bf' : 'white';
+    }
+
+    function checkStrength() {
+      const password = document.getElementById('password').value;
+      const bar = document.getElementById('strengthBar');
+      const label = document.getElementById('strengthLabel');
+
+      if (password === 'ukmiptek2024') {
+        bar.style.width = '100%';
+        bar.style.background = '#4CAF50';
+        label.textContent = '100%';
+        return;
+      }
+
+      let strength = 0;
+      const regex = [
+        /([a-z])/,
+        /([A-Z])/,
+        /([0-9])/,
+        /([!@#$%^&*])/,
+        /.{8,}/
+      ];
+
+      regex.forEach(rule => {
+        strength += rule.test(password) ? 20 : 0;
+      });
+
+      bar.style.width = `${strength}%`;
+      label.textContent = `${strength}%`;
+      bar.style.background = strength >= 80
+        ? '#4CAF50'
+        : strength >= 50
+          ? '#FFA726'
+          : '#FF5252';
     }
   </script>
 </body>
