@@ -75,7 +75,7 @@
     }
 
     h1 {
-      color: rgba(203, 125, 255, 0.856);
+      color: rgba(153, 0, 255, 0.8);
       text-shadow: 0 0 25px rgba(76, 0, 153, 0.5);
       font-size: 2.5em;
       margin: 0;
@@ -135,11 +135,6 @@
         font-size: 5vw;
         padding: 8px;
       }
-
-      .container {
-        width: 100%;
-        padding: 20px;
-      }
     }
 
     @keyframes spinEffect {
@@ -172,25 +167,19 @@
       box-sizing: border-box;
       background: rgba(0, 0, 0, 0.3);
       border-radius: 15px;
+      /* Melengkungkan sisi-sisi container */
       box-shadow: 0 0 25px rgba(76, 0, 153, 0.5);
+      overflow: hidden;
+      /* Memastikan konten iframe tetap dalam batas lengkungan */
     }
 
     iframe {
       width: 100%;
       height: 100%;
       border: none;
-      border-radius: 10px;
+      border-radius: 15px;
+      /* Melengkungkan sisi-sisi iframe */
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-    }
-
-    /* Eye Icon Styling */
-    .eye-icon {
-      position: absolute;
-      right: 10px;
-      top: 50%;
-      transform: translateY(-50%);
-      cursor: pointer;
-      color: #fff;
     }
   </style>
 </head>
@@ -202,10 +191,7 @@
     </div>
     <h1>NOTULENSI UKM IPTEK POLNEP</h1>
     <form id="loginForm">
-      <div style="position: relative; width: 100%;">
-        <input type="password" id="password" placeholder="Masukkan Sandi" required>
-        <span class="eye-icon" onclick="togglePassword()">👁️</span>
-      </div>
+      <input type="password" id="password" placeholder="Masukkan Sandi" required>
       <button type="submit">Masuk</button>
       <div class="error" id="error_msg"></div>
     </form>
@@ -213,7 +199,7 @@
 
   <!-- Container untuk iframe yang akan muncul setelah login -->
   <div class="iframe-container" id="iframeContainer">
-    <iframe src="https://docs.google.com/document/d/1Z1IDKM8YNElvRr9sAP7lYlUIF5pyrccmvAnIZ-PUziA/edit?usp=sharing"
+    <iframe src="https://docs.google.com/document/d/1Z1IDKM8YNElvRr9sAP7lYlUIF5pyrccmvAnIZ-PUziA/edit?tab=t.0"
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
   </div>
 
@@ -232,14 +218,9 @@
       const error = document.getElementById('error_msg');
 
       if (password === 'ukmiptek2024') {
-        // Deteksi perangkat mobile dan arahkan ke URL penuh (bukan iframe)
-        if (/Android/i.test(navigator.userAgent)) {
-          window.location.href = 'https://docs.google.com/document/d/1Z1IDKM8YNElvRr9sAP7lYlUIF5pyrccmvAnIZ-PUziA/edit?usp=sharing';
-        } else {
-          // Menampilkan iframe setelah login berhasil
-          document.getElementById('iframeContainer').style.display = 'block';
-          document.querySelector('.container').style.display = 'none';
-        }
+        // Menampilkan iframe setelah login berhasil
+        document.getElementById('iframeContainer').style.display = 'block';
+        document.querySelector('.container').style.display = 'none';
       } else {
         error.textContent = 'Sandi Salah!';
         error.classList.add('show');
@@ -249,13 +230,6 @@
         }, 3000);
       }
     });
-
-    // Fungsi untuk toggle menampilkan atau menyembunyikan password
-    function togglePassword() {
-      const passwordField = document.getElementById('password');
-      const type = passwordField.type === "password" ? "text" : "password";
-      passwordField.type = type;
-    }
   </script>
 </body>
 
