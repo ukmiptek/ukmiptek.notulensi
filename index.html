@@ -65,8 +65,8 @@
       border-radius: inherit;
     }
 
-    .logo.spin-continuous {
-      animation: spin 1s linear infinite;
+    .logo.spin-effect {
+      animation: spin 0.5s ease;
     }
 
     @keyframes spin {
@@ -92,7 +92,6 @@
       pointer-events: none;
       transition: all 0.4s ease;
       z-index: 9999;
-      /* Pastikan di depan semua elemen */
     }
 
     .notification.show {
@@ -206,28 +205,6 @@
       filter: drop-shadow(0 0 3px #ff58bf);
     }
 
-    @media (max-width: 768px) {
-      .logo {
-        width: 120px;
-        height: 120px;
-      }
-
-      h1 {
-        font-size: 6vw;
-      }
-
-      input[type="password"],
-      button {
-        font-size: 5vw;
-        padding: 8px;
-      }
-
-      .container {
-        width: 100%;
-        padding: 20px;
-      }
-    }
-
     .iframe-container {
       width: 100%;
       height: 100vh;
@@ -239,7 +216,6 @@
       box-shadow: 0 0 25px rgba(76, 0, 153, 0.5);
       overflow: hidden;
       z-index: 999;
-      /* Pastikan notification di atas iframe */
     }
 
     iframe {
@@ -264,7 +240,7 @@
   </div>
 
   <div class="container">
-    <div class="logo" onclick="toggleLogoSpin()">
+    <div class="logo" onclick="handleLogoClick()">
       <img src="UKMIPTEK.png" alt="Logo UKM IPTEK">
     </div>
     <h1>NOTULENSI UKM IPTEK POLNEP</h1>
@@ -294,12 +270,6 @@
   </div>
 
   <script>
-    // Logo spin on page load
-    document.querySelector('.logo').classList.add('spin-continuous');
-    setTimeout(() => {
-      document.querySelector('.logo').classList.remove('spin-continuous');
-    }, 3000);
-
     // Notification handling
     const notification = document.getElementById('notification');
     const hasDismissed = sessionStorage.getItem('hasDismissedNotification');
@@ -313,43 +283,17 @@
       sessionStorage.setItem('hasDismissedNotification', 'true');
     });
 
-    let isSpinning = false;
-
-    function toggleLogoSpin() {
+    // Logo click handler
+    function handleLogoClick() {
       const logo = document.querySelector('.logo');
-      if (isSpinning) {
-        logo.classList.remove('spin-continuous');
-        logo.style.transform = 'rotate(0deg)';
-        isSpinning = false;
-      } else {
-        logo.classList.add('spin-continuous');
-        logo.style.transform = 'rotate(0deg)';
-        isSpinning = true;
-      }
+      logo.classList.add('spin-effect');
+
+      setTimeout(() => {
+        window.open('https://www.instagram.com/ukmiptekpolnep?igsh=MWF0NWljMG4xeDhkbQ==', '_blank');
+      }, 500);
     }
 
-    document.getElementById('loginForm').addEventListener('submit', function (e) {
-      e.preventDefault();
-      const password = document.getElementById('password').value;
-      const error = document.getElementById('error_msg');
-
-      if (password === 'ukmiptek2024') {
-        if (/Android/i.test(navigator.userAgent)) {
-          window.location.href = 'https://docs.google.com/document/d/1Z1IDKM8YNElvRr9sAP7lYlUIF5pyrccmvAnIZ-PUziA/edit?usp=sharing';
-        } else {
-          document.getElementById('iframeContainer').style.display = 'block';
-          document.querySelector('.container').style.display = 'none';
-        }
-      } else {
-        error.textContent = 'Sandi Salah!';
-        error.classList.add('show');
-        setTimeout(() => {
-          error.classList.remove('show');
-          error.textContent = '';
-        }, 3000);
-      }
-    });
-
+    // Password toggle
     function togglePassword() {
       const passwordField = document.getElementById('password');
       const icon = document.querySelector('.toggle-password svg');
@@ -357,6 +301,7 @@
       icon.style.stroke = passwordField.type === 'text' ? '#ff58bf' : 'white';
     }
 
+    // Password strength checker
     function checkStrength() {
       const password = document.getElementById('password').value;
       const bar = document.getElementById('strengthBar');
@@ -390,6 +335,29 @@
           ? '#FFA726'
           : '#FF5252';
     }
+
+    // Form submission
+    document.getElementById('loginForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const password = document.getElementById('password').value;
+      const error = document.getElementById('error_msg');
+
+      if (password === 'ukmiptek2024') {
+        if (/Android/i.test(navigator.userAgent)) {
+          window.location.href = 'https://docs.google.com/document/d/1Z1IDKM8YNElvRr9sAP7lYlUIF5pyrccmvAnIZ-PUziA/edit?usp=sharing';
+        } else {
+          document.getElementById('iframeContainer').style.display = 'block';
+          document.querySelector('.container').style.display = 'none';
+        }
+      } else {
+        error.textContent = 'Sandi Salah!';
+        error.classList.add('show');
+        setTimeout(() => {
+          error.classList.remove('show');
+          error.textContent = '';
+        }, 3000);
+      }
+    });
   </script>
 </body>
 
